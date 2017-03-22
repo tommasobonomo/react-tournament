@@ -4,13 +4,24 @@ import Score from './Score';
 import Table from './Table';
 import './App.css';
 
+class Player {
+  constructor(name) {
+    this.name = name;
+    this.points = 0;
+    this.gamesPlayed = 0;
+    this.gamesWon = 0;
+    this.gamesLost = 0;
+    this.gamesDrawn = 0;
+  }
+}
+
+
 class App extends Component {
 
   constructor() {
     super();
-    var players=[];
     this.state = {
-      "players": players,
+      "players": [],
       "numberPlayers": 0,
       "numberEntered": false,
       "start": true,
@@ -26,7 +37,16 @@ class App extends Component {
   }
 
   handlePlayers() {
-
+    var players = [];
+    const n = this.state.numberPlayers;
+    for (var i=1; i<=n; i++) {
+      players.push(Player(document.getElementById("i"+i).value));
+    }
+    console.log(players);
+    this.setState({
+      "players": players,
+      "start": false
+    })
   }
 
   render() {
@@ -35,7 +55,10 @@ class App extends Component {
       component =
         <div>
           <div className="left">
-            <Score/>
+            <Score
+               players={this.state.players}
+               
+             />
           </div>
           <div className="right">
             <Table/>
@@ -57,15 +80,5 @@ class App extends Component {
   }
 }
 
-class Player {
-  constructor(name) {
-    this.name = name;
-    this.points = 0;
-    this.gamesPlayed = 0;
-    this.gamesWon = 0;
-    this.gamesLost = 0;
-    this.gamesDrawn = 0;
-  }
-}
 
 export default App;

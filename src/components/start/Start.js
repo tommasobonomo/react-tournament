@@ -1,11 +1,11 @@
-import React, {Component} from "react";
+import React from "react";
 
 import Names from "./Names.js";
 import Numbers from "./Numbers.js"
 
 const Start = (props) => {
   var component;
-  if(props.numberEntered == false)
+  if(props.numberEntered === false)
     component=
         <Numbers handleNumbers={props.handleNumbers}/>
   else {

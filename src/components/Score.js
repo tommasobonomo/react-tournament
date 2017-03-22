@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Score extends Component {
-  render() {
-    return null;
-  }
+const Score = (props) => {
+
+
+  return(null);
 }
 
 export default Score;

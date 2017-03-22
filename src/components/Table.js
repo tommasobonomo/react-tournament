@@ -1,13 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Table extends Component {
-  constructor() {
-    super();
-  }
+const Table = (props) => {
 
-  render() {
-    return null;
-  }
+
+  return (null);
 }
 
 export default Table;
