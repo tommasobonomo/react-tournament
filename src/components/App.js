@@ -15,7 +15,6 @@ class App extends Component {
       "numberEntered": false,
       "start": true,
     };
-    // this.insertNames();
   }
 
   handleNumbers() {

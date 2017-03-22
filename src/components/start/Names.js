@@ -1,20 +1,15 @@
 import React, {Component} from "react";
 
-const nameInput = (i) => {
-  return (<input placeholder={"Player "+i} id={"p"+i}/>)
-}
-
 const Names = (props) => {
-  var namesInputs;
-  for (var i=0; i< props.numberPlayers; i++) {
-    namesInputs+= nameInput(i);
+  const n = props.numberPlayers;
+  var inputs = [];
+  for (var i=1; i<=n; i++) {
+    inputs.push(<p key={"p"+i}><input placeholder={"Player "+i} key={"i"+i}/></p>)
   }
-
-  namesInputs+= <button onClick={props.handlePlayers}>Enter</button>;
-
-  var component = <div> {namesInputs} </div>;
-
-  return (component);
+  inputs.push(
+    <button onClick={props.handlePlayers} key={"playerButton"}>Enter</button>
+  );
+  return (<div>{inputs}</div>);
 }
 
 export default Names;
