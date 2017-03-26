@@ -4,7 +4,7 @@ const Numbers = (props) => {
   return(
     <div>
       <p>How many players are there?</p>
-      <input id="number" type="number"/>
+      <input id="number" type="number" autoFocus/>
       <button onClick={props.handleNumbers}>
         Enter
       </button>
