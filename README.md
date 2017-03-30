@@ -11,3 +11,7 @@ https://tommasobonomo.github.io/react-tournament/
 - Better checks on score inputs
 - Implementation of settings panel at the start of a new tournament, to choose number of points awarded for each different result
 - Ability to save/load tournaments
+
+### Buil
+
+Simply run ``` npm run build ``` to get a static build version of the project
