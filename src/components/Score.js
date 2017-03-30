@@ -47,20 +47,26 @@ const Score = (props) => {
           />
         </div>
       </div>
-      <button
-        className="w3-margin-top"
-        onClick={props.handleScore}
-        id="scoreSubmit"
-      >
-        Enter
-      </button>
-      <button
-        className="w3-margin-top"
-        onClick={props.endGame}
-        id="endGame"
-      >
-        End
-      </button>
+      <div className="tooltip">
+        <button
+          className="w3-margin-top w3-circle w3-blue-gray"
+          onClick={props.handleScore}
+          id="scoreSubmit"
+        >
+          <i className="material-icons">arrow_forward</i>
+        </button>
+        <span className="tooltiptext">Enter</span>
+      </div>
+      <div className="tooltip">
+        <button
+          className="w3-margin-top w3-circle w3-blue-gray"
+          onClick={props.endGame}
+          id="endGame"
+        >
+          <i className="material-icons">clear</i>
+        </button>
+        <span className="tooltiptext">End</span>
+      </div>
     </div>
   );
 }

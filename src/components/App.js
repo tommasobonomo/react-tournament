@@ -183,7 +183,7 @@ class App extends Component {
             newGame={this.newGame.bind(this)}
           />
         </div>
-        <div className="w3-twothird">
+        <div className="w3-twothird w3-responsive">
           <Table
             players={this.state.players}
             numberPlayers={this.state.numberPlayers}
@@ -201,7 +201,7 @@ class App extends Component {
                endGame={this.endGame.bind(this)}
              />
           </div>
-          <div className="w3-twothird">
+          <div className="w3-twothird w3-responsive">
             <Table
               players={this.state.players}
               numberPlayers={this.state.numberPlayers}
@@ -211,7 +211,7 @@ class App extends Component {
       ;
     } else {
       component =
-        <div>
+        <div className="w3-row">
           <Start
             handleNumbers={this.handleNumbers.bind(this)}
             numberEntered={this.state.numberEntered}

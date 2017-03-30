@@ -16,7 +16,15 @@ const Names = (props) => {
     )
   }
   inputs.push(
-    <button onClick={props.handlePlayers} key={"playerButton"}>Enter</button>
+    <div className="tooltip" key={"playerButton"}>
+      <button
+        onClick={props.handlePlayers}
+        className="w3-circle w3-blue-gray "
+      >
+        <i className="material-icons">arrow_forward</i>
+      </button>
+      <span className="tooltiptext">Enter</span>
+    </div>
   );
   return (<div>{inputs}</div>);
 }
