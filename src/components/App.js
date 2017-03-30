@@ -28,6 +28,7 @@ class App extends Component {
       "start": true,
       "end": false
     };
+    this.initialState = this.state;
   }
 
   compare(a,b) {
@@ -168,10 +169,7 @@ class App extends Component {
   }
 
   newGame() {
-    // TODO: better implement the restart feature
-    // this.setState(this.getInitialState());
-
-    location.reload();
+    this.setState(this.initialState);
   }
 
   render() {
