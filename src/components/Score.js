@@ -1,27 +1,43 @@
 import React from 'react';
 
-const playerSelect = (homeOrAway,players,n) => {
+const playerSelect = (homeOrAway,players,n,disableAway,disabledPlayer) => {
 
   // TODO: implement check that disables selction of same player in both fields
 
   var output = [];
 
   for (var i=0; i<n; i++) {
+
     output.push(
-      <option key={"o"+i} value={players[i].name}>
-        {players[i].name}
-      </option>
-    )
+
+      <p key={"paragraph"+i}>
+        <input
+          type="radio"
+          key={"o"+i}
+          name={homeOrAway+"players"}
+          id={homeOrAway + "Player" + i}
+          value={players[i].name}
+          className="w3-radio w3-margin-right"
+          onClick={(e) => disableAway(e,homeOrAway)}
+        />
+        <label>{players[i].name}</label>
+
+      </p>
+    );
+
+    if (disabledPlayer !== null)
+      if (disabledPlayer === players[i].name)
+        document.getElementById("awayPlayer" + i).disabled = true;
+      else
+        document.getElementById("awayPlayer" + i).disabled = false;
   }
 
-
   return (
-    <select
-      className="w3-select w3-half w3-light-grey w3-border"
-      id={homeOrAway+"Player"}
+    <div
+      className="w3-half w3-light-grey w3-border w3-padding"
     >
       {output}
-    </select>
+    </div>
   );
 }
 
@@ -31,8 +47,14 @@ const Score = (props) => {
     <div className="w3-margin">
       <div className="w3-card-4">
         <div className="w3-row">
-          {playerSelect("home",props.players,props.numberPlayers)}
-          {playerSelect("away",props.players,props.numberPlayers)}
+          {playerSelect(
+            "home",props.players,props.numberPlayers,
+            props.disableAway,props.disabledPlayer
+          )}
+          {playerSelect(
+            "away",props.players,props.numberPlayers,
+            props.disableAway,props.disabledPlayer
+          )}
         </div>
         <div className="w3-row">
           <input
