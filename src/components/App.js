@@ -23,10 +23,12 @@ class App extends Component {
     super();
     this.state = {
       "players": [],
+      "staticPlayers": [],
       "numberPlayers": 0,
       "numberEntered": false,
       "start": true,
-      "end": false
+      "end": false,
+      "disabledPlayer": null
     };
     this.initialState = this.state;
   }
@@ -88,14 +90,35 @@ class App extends Component {
     }
     this.setState({
       "players": players,
+      "staticPlayers": players,
       "start": false
     })
   }
 
   handleScore() {
 
-    const player1 = document.getElementById("homePlayer");
-    const player2 = document.getElementById("awayPlayer");
+    var player1;
+    var player2;
+    var i, tmp;
+    const n = this.state.numberPlayers;
+
+    // Checks what players have been selected
+    var stop = false;
+    for (i=0; i<n && !stop; i++) {
+      tmp = document.getElementById("homePlayer"+i);
+      if (tmp.checked) {
+        player1 = tmp;
+        stop = true;
+      }
+    }
+    stop = false
+    for (i=0; i<n && !stop; i++) {
+      tmp = document.getElementById("awayPlayer"+i);
+      if (tmp.checked) {
+        player2 = tmp;
+        stop = true;
+      }
+    }
 
     player1.focus();
 
@@ -105,11 +128,11 @@ class App extends Component {
       document.getElementById("awayScore").value = null;
     } else {
 
-      var tmp = this.state.players.slice();
+      tmp = this.state.players.slice();
       var homePos;
       var awayPos;
 
-      for (var i=0; i<this.state.numberPlayers; i++) {
+      for (i=0; i<n; i++) {
         if (tmp[i].name === player1.value) {
           homePos = i;
         }
@@ -162,6 +185,15 @@ class App extends Component {
     }
   }
 
+  disableAway(e,homeOrAway) {
+    var tmp = e.target;
+    if (homeOrAway === "home") {
+      this.setState({
+        "disabledPlayer": tmp.value
+      })
+    }
+  }
+
   endGame() {
     this.setState({
       "end": true,
@@ -195,10 +227,12 @@ class App extends Component {
         <div className="w3-row">
           <div className="w3-third">
             <Score
-               players={this.state.players}
+               players={this.state.staticPlayers}
                numberPlayers={this.state.numberPlayers}
                handleScore={this.handleScore.bind(this)}
                endGame={this.endGame.bind(this)}
+               disableAway={this.disableAway.bind(this)}
+               disabledPlayer={this.state.disabledPlayer}
              />
           </div>
           <div className="w3-twothird w3-responsive">
