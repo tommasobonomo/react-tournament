@@ -33,6 +33,7 @@ class App extends Component {
     this.initialState = this.state;
   }
 
+  // util function to compare the different Player objects
   compare(a,b) {
     var res;
     if (a.points > b.points) {
@@ -58,6 +59,7 @@ class App extends Component {
     return res;
   }
 
+  // sorts this.state.players using the compare function
   sortTable(tmp) {
     tmp.sort(this.compare);
     this.setState({
@@ -65,6 +67,7 @@ class App extends Component {
     });
   }
 
+  // number input handler
   handleNumbers() {
     const number = document.getElementById("number").value;
 
@@ -82,6 +85,7 @@ class App extends Component {
     }
   }
 
+  // players' name input handler
   handlePlayers() {
     var players = [];
     const n = this.state.numberPlayers;
@@ -95,6 +99,7 @@ class App extends Component {
     })
   }
 
+  // score input handler
   handleScore() {
 
     var player1;
@@ -120,8 +125,9 @@ class App extends Component {
       }
     }
 
-    player1.focus();
 
+
+    // checks that players are different
     if (player1.value === player2.value) {
       window.alert("Players can't play against themselves!");
       document.getElementById("homeScore").value = null;
@@ -132,6 +138,7 @@ class App extends Component {
       var homePos;
       var awayPos;
 
+      // gets position in Players' array for homePlayer and awayPlayer
       for (i=0; i<n; i++) {
         if (tmp[i].name === player1.value) {
           homePos = i;
@@ -150,6 +157,7 @@ class App extends Component {
       var homeWin;
       var draw;
 
+      // checks different scenarios (home win, away win or draw)
       if (score1 > score2) {
         homeWin = true;
       } else if (score1 < score2) {
@@ -158,7 +166,7 @@ class App extends Component {
         draw = true;
       }
 
-
+      // updates players according to the different scenarios
       if (draw) {
         tmp[homePos].points++;
         tmp[awayPos].points++;
@@ -178,13 +186,20 @@ class App extends Component {
 
       this.sortTable(tmp);
 
+      // resets the radio buttons to unchecked
+      player1.checked = false;
+      player2.checked = false;
+
       this.setState({
         "players" : tmp,
+        "disabledPlayer": null
       });
 
     }
   }
 
+  // disables the radio button for the away player who's name is
+  // this.state.disabledPlayer
   disableAway(e,homeOrAway) {
     var tmp = e.target;
     if (homeOrAway === "home") {
@@ -194,16 +209,19 @@ class App extends Component {
     }
   }
 
+  // sets this.state.end to true, triggering renders of other components
   endGame() {
     this.setState({
       "end": true,
     })
   }
 
+  // sets the whole state to it's initial values
   newGame() {
     this.setState(this.initialState);
   }
 
+  // render method with various conditions depending on the state
   render() {
     var component;
     if (this.state.end === true) {
