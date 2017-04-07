@@ -104,6 +104,7 @@ class App extends Component {
 
     var player1;
     var player2;
+    var disabledPlayer;
     var i, tmp;
     const n = this.state.numberPlayers;
 
@@ -114,6 +115,7 @@ class App extends Component {
       if (tmp.checked) {
         player1 = tmp;
         stop = true;
+        disabledPlayer = document.getElementById("awayPlayer"+i);
       }
     }
     stop = false
@@ -189,6 +191,9 @@ class App extends Component {
       // resets the radio buttons to unchecked
       player1.checked = false;
       player2.checked = false;
+
+      // renables the disabled radio button
+      disabledPlayer.disabled = false;
 
       this.setState({
         "players" : tmp,
