@@ -26,9 +26,10 @@ const playerSelect = (homeOrAway,players,n,disableAway,disabledPlayer) => {
     );
 
     if (disabledPlayer !== null)
-      if (disabledPlayer === players[i].name)
+      if (disabledPlayer === players[i].name) {
         document.getElementById("awayPlayer" + i).disabled = true;
-      else
+        document.getElementById("awayPlayer" + i).checked = false;
+      } else
         document.getElementById("awayPlayer" + i).disabled = false;
   }
 

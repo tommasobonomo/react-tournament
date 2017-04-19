@@ -118,7 +118,7 @@ class App extends Component {
         disabledPlayer = document.getElementById("awayPlayer"+i);
       }
     }
-    stop = false
+    stop = false;
     for (i=0; i<n && !stop; i++) {
       tmp = document.getElementById("awayPlayer"+i);
       if (tmp.checked) {
@@ -129,79 +129,76 @@ class App extends Component {
 
 
 
-    // checks that players are different
-    if (player1.value === player2.value) {
-      window.alert("Players can't play against themselves!");
-      document.getElementById("homeScore").value = null;
-      document.getElementById("awayScore").value = null;
-    } else {
+    tmp = this.state.players.slice();
+    var homePos;
+    var awayPos;
 
-      tmp = this.state.players.slice();
-      var homePos;
-      var awayPos;
-
-      // gets position in Players' array for homePlayer and awayPlayer
-      for (i=0; i<n; i++) {
-        if (tmp[i].name === player1.value) {
-          homePos = i;
-        }
-        if (tmp[i].name === player2.value) {
-          awayPos = i;
-        }
+    // gets position in Players' array for homePlayer and awayPlayer
+    for (i=0; i<n; i++) {
+      if (tmp[i].name === player1.value) {
+        homePos = i;
       }
-
-      tmp[homePos].gamesPlayed ++;
-      tmp[awayPos].gamesPlayed ++;
-
-      const score1 = parseInt(document.getElementById("homeScore").value,10);
-      const score2 = parseInt(document.getElementById("awayScore").value,10);
-
-      var homeWin;
-      var draw;
-
-      // checks different scenarios (home win, away win or draw)
-      if (score1 > score2) {
-        homeWin = true;
-      } else if (score1 < score2) {
-        homeWin = false;
-      } else {
-        draw = true;
+      if (tmp[i].name === player2.value) {
+        awayPos = i;
       }
-
-      // updates players according to the different scenarios
-      if (draw) {
-        tmp[homePos].points++;
-        tmp[awayPos].points++;
-        tmp[homePos].gamesDrawn++;
-        tmp[awayPos].gamesDrawn++;
-      } else {
-        if (homeWin) {
-          tmp[homePos].points += 3;
-          tmp[homePos].gamesWon++;
-          tmp[awayPos].gamesLost++;
-        } else if (!homeWin) {
-          tmp[awayPos].points += 3;
-          tmp[awayPos].gamesWon++;
-          tmp[homePos].gamesLost++;
-        }
-      }
-
-      this.sortTable(tmp);
-
-      // resets the radio buttons to unchecked
-      player1.checked = false;
-      player2.checked = false;
-
-      // renables the disabled radio button
-      disabledPlayer.disabled = false;
-
-      this.setState({
-        "players" : tmp,
-        "disabledPlayer": null
-      });
-
     }
+
+    tmp[homePos].gamesPlayed ++;
+    tmp[awayPos].gamesPlayed ++;
+
+    const score1 = parseInt(document.getElementById("homeScore").value,10);
+    const score2 = parseInt(document.getElementById("awayScore").value,10);
+
+    var homeWin;
+    var draw;
+
+    // checks different scenarios (home win, away win or draw)
+    if (score1 > score2) {
+      homeWin = true;
+    } else if (score1 < score2) {
+      homeWin = false;
+    } else {
+      draw = true;
+    }
+
+    // updates players according to the different scenarios
+    if (draw) {
+      tmp[homePos].points++;
+      tmp[awayPos].points++;
+      tmp[homePos].gamesDrawn++;
+      tmp[awayPos].gamesDrawn++;
+    } else {
+      if (homeWin) {
+        tmp[homePos].points += 3;
+        tmp[homePos].gamesWon++;
+        tmp[awayPos].gamesLost++;
+      } else if (!homeWin) {
+        tmp[awayPos].points += 3;
+        tmp[awayPos].gamesWon++;
+        tmp[homePos].gamesLost++;
+      }
+    }
+
+    this.sortTable(tmp);
+
+    // resets the radio buttons to unchecked
+    player1.checked = false;
+    player2.checked = false;
+
+    // renables the disabled radio button
+    disabledPlayer.disabled = false;
+
+    // resets the score inputs
+    document.getElementById("homeScore").value = null;
+    document.getElementById("awayScore").value = null;
+
+    this.setState({
+      "players" : tmp,
+      "disabledPlayer": null
+    });
+
   }
+
 
   // disables the radio button for the away player who's name is
   // this.state.disabledPlayer
