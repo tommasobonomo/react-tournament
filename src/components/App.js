@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import End from './End';
-import Start from './start/Start';
+import Settings from './start/Settings';
 import Score from './Score';
 import Table from './Table';
 
@@ -68,35 +68,43 @@ class App extends Component {
   }
 
   // number input handler
-  handleNumbers() {
-    const number = document.getElementById("number").value;
+  handleNumbers(event) {
 
-    // number control
-    if (number <= 2) {
-      window.alert("You need to have 3 or more players");
-      const n = document.getElementById("number");
-      n.value = null;
-      n.focus();
-    } else {
-      this.setState({
-        "numberPlayers": number,
-        "numberEntered": true,
-      })
-    }
+    this.setState({"numberPlayers":event.target.value});
+
+    // // number control
+    // if (this.state.numberPlayers <= 2) {
+    //   window.alert("You need to have 3 or more players");
+    // } else {
+    //   this.setState({
+    //     "numberEntered": true,
+    //   })
+    // }
   }
 
   // players' name input handler
-  handlePlayers() {
-    var players = [];
-    const n = this.state.numberPlayers;
-    for (var i=1; i<=n; i++) {
-      players.push(new Player(document.getElementById("i"+i).value));
+  handlePlayers(event) {
+    // console.log("in event handler for input " + event.target.id);
+    var players = this.state.players;
+    var pos = event.target.id;
+
+    if (players[pos] === undefined) {
+      players[pos] = new Player(event.target.value);
+    } else {
+      players[pos].constructor(event.target.value);
     }
-    this.setState({
-      "players": players,
-      "staticPlayers": players,
-      "start": false
-    })
+
+    this.setState({players});
+
+    // const n = this.state.numberPlayers;
+    // for (var i=1; i<=n; i++) {
+    //   players.push(new Player(document.getElementById("i"+i).value));
+    // }
+    // this.setState({
+    //   "players": players,
+    //   "staticPlayers": players,
+    //   "start": false
+    // })
   }
 
   // score input handler
@@ -266,9 +274,15 @@ class App extends Component {
     } else {
       component =
         <div className="w3-row">
-          <Start
+          {/* <Start
             handleNumbers={this.handleNumbers.bind(this)}
             numberEntered={this.state.numberEntered}
+            numberPlayers={this.state.numberPlayers}
+            handlePlayers={this.handlePlayers.bind(this)}
+          /> */}
+          <Settings
+            numberEntered={this.state.numberEntered}
+            handleNumbers={this.handleNumbers.bind(this)}
             numberPlayers={this.state.numberPlayers}
             handlePlayers={this.handlePlayers.bind(this)}
           />

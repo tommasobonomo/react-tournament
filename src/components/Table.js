@@ -31,8 +31,8 @@ const Table = (props) => {
 
   var inputs = [];
   const n = props.numberPlayers;
-  for (var i=1; i<=n; i++) {
-    inputs.push(scoreLine(i-1,props.players));
+  for (var i=0; i<n; i++) {
+    inputs.push(scoreLine(i,props.players));
   }
   return (
     <table className="w3-table-all w3-hoverable w3-card-4 w3-margin-top">
