@@ -98,13 +98,16 @@ class App extends Component {
     if (event.target.value <= 0) {
       window.alert("Win points cannot be zero or negative");
     } else {
-      this.setState({"winPoints": event.target.value});
+      this.setState({"winPoints": parseInt(event.target.value,10)});
     }
   }
 
   // sets the start element in state to false
   setStartFalse() {
-    this.setState({"start" : false});
+    this.setState({
+     "start" : false,
+     "staticPlayers": this.state.players
+    });
   }
 
   // score input handler

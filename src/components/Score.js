@@ -5,7 +5,6 @@ const playerSelect = (homeOrAway,players,n,disableAway,disabledPlayer) => {
   var output = [];
 
   for (var i=0; i<n; i++) {
-
     output.push(
 
       <p key={"paragraph"+i}>
@@ -41,7 +40,6 @@ const playerSelect = (homeOrAway,players,n,disableAway,disabledPlayer) => {
 }
 
 const Score = (props) => {
-
   return(
     <div className="w3-margin">
       <div className="w3-card-4">
