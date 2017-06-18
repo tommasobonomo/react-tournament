@@ -23,15 +23,38 @@ const playerInputs = (n,handlePlayers) => {
 const Settings = (props) => {
   return (
     <div>
-      <p>How many players are there?</p>
-      <p><input
-        value={props.numberPlayers}
-        onChange={props.handleNumbers}
-        type="number"
-        autoFocus
-      /> (maximum of 50)</p>
-      <div><p> Players: </p>
-        {playerInputs(props.numberPlayers,props.handlePlayers)}
+      <div className="w3-container w3-row">
+        <div className="w3-third">
+          <p>How many points for a victory?</p>
+          <p>
+            <input
+              value={props.winPoints}
+              onChange={props.handleWinPoints}
+              type="number"
+              autoFocus
+            />
+          </p>
+        </div>
+        <div className="w3-third">
+          <p>How many players are there?</p>
+          <p><input
+          value={props.numberPlayers}
+          onChange={props.handleNumbers}
+          type="number"
+          /> (maximum of 50)</p>
+        </div>
+        <div className="w3-third">
+          <p> Players: </p>
+          {playerInputs(props.numberPlayers,props.handlePlayers)}
+        </div>
+      </div>
+      <div className="w3-center">
+        <button
+          className="w3-button w3-blue-grey w3-large"
+          onClick={props.setStartFalse}
+        >
+          Start
+        </button>
       </div>
     </div>
   );

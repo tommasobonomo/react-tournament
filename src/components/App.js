@@ -24,11 +24,12 @@ class App extends Component {
     this.state = {
       "players": [],
       "staticPlayers": [],
-      "numberPlayers": 0,
+      "numberPlayers": 3,
       "numberEntered": false,
       "start": true,
       "end": false,
-      "disabledPlayer": null
+      "disabledPlayer": null,
+      "winPoints":3
     };
     this.initialState = this.state;
   }
@@ -70,16 +71,15 @@ class App extends Component {
   // number input handler
   handleNumbers(event) {
 
-    this.setState({"numberPlayers":event.target.value});
-
-    // // number control
-    // if (this.state.numberPlayers <= 2) {
-    //   window.alert("You need to have 3 or more players");
-    // } else {
-    //   this.setState({
-    //     "numberEntered": true,
-    //   })
-    // }
+    // number control
+    if (event.target.value <= 2) {
+      window.alert("You need to have 3 or more players");
+    } else {
+      this.setState({
+        "numberPlayers":event.target.value
+        // "numberEntered": true,
+      })
+    }
   }
 
   // players' name input handler
@@ -105,6 +105,20 @@ class App extends Component {
     //   "staticPlayers": players,
     //   "start": false
     // })
+  }
+
+  // win points input handler
+  handleWinPoints(event) {
+    if (event.target.value <= 0) {
+      window.alert("Win points cannot be zero or negative");
+    } else {
+      this.setState({"winPoints": event.target.value});
+    }
+  }
+
+  // sets the start element in state to false
+  setStartFalse() {
+    this.setState({"start" : false});
   }
 
   // score input handler
@@ -177,11 +191,11 @@ class App extends Component {
       tmp[awayPos].gamesDrawn++;
     } else {
       if (homeWin) {
-        tmp[homePos].points += 3;
+        tmp[homePos].points += this.state.winPoints;
         tmp[homePos].gamesWon++;
         tmp[awayPos].gamesLost++;
       } else if (!homeWin) {
-        tmp[awayPos].points += 3;
+        tmp[awayPos].points += this.state.winPoints;
         tmp[awayPos].gamesWon++;
         tmp[homePos].gamesLost++;
       }
@@ -270,21 +284,17 @@ class App extends Component {
             />
           </div>
         </div>
-      ;
     } else {
       component =
         <div className="w3-row">
-          {/* <Start
-            handleNumbers={this.handleNumbers.bind(this)}
-            numberEntered={this.state.numberEntered}
-            numberPlayers={this.state.numberPlayers}
-            handlePlayers={this.handlePlayers.bind(this)}
-          /> */}
           <Settings
             numberEntered={this.state.numberEntered}
             handleNumbers={this.handleNumbers.bind(this)}
             numberPlayers={this.state.numberPlayers}
             handlePlayers={this.handlePlayers.bind(this)}
+            winPoints={this.state.winPoints}
+            handleWinPoints={this.handleWinPoints.bind(this)}
+            setStartFalse={this.setStartFalse.bind(this)}
           />
         </div>;
     }
