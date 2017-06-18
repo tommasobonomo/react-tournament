@@ -25,7 +25,6 @@ class App extends Component {
       "players": [],
       "staticPlayers": [],
       "numberPlayers": 3,
-      "numberEntered": false,
       "start": true,
       "end": false,
       "disabledPlayer": null,
@@ -70,21 +69,18 @@ class App extends Component {
 
   // number input handler
   handleNumbers(event) {
-
     // number control
     if (event.target.value <= 2) {
       window.alert("You need to have 3 or more players");
     } else {
       this.setState({
         "numberPlayers":event.target.value
-        // "numberEntered": true,
       })
     }
   }
 
   // players' name input handler
   handlePlayers(event) {
-    // console.log("in event handler for input " + event.target.id);
     var players = this.state.players;
     var pos = event.target.id;
 
@@ -95,16 +91,6 @@ class App extends Component {
     }
 
     this.setState({players});
-
-    // const n = this.state.numberPlayers;
-    // for (var i=1; i<=n; i++) {
-    //   players.push(new Player(document.getElementById("i"+i).value));
-    // }
-    // this.setState({
-    //   "players": players,
-    //   "staticPlayers": players,
-    //   "start": false
-    // })
   }
 
   // win points input handler
@@ -288,7 +274,6 @@ class App extends Component {
       component =
         <div className="w3-row">
           <Settings
-            numberEntered={this.state.numberEntered}
             handleNumbers={this.handleNumbers.bind(this)}
             numberPlayers={this.state.numberPlayers}
             handlePlayers={this.handlePlayers.bind(this)}

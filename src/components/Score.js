@@ -2,8 +2,6 @@ import React from 'react';
 
 const playerSelect = (homeOrAway,players,n,disableAway,disabledPlayer) => {
 
-  // TODO: implement check that disables selction of same player in both fields
-
   var output = [];
 
   for (var i=0; i<n; i++) {
