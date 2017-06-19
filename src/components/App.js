@@ -30,7 +30,6 @@ class App extends Component {
       "disabledPlayer": null,
       "winPoints":3
     };
-    this.initialState = this.state;
   }
 
   // util function to compare the different Player objects
@@ -212,18 +211,6 @@ class App extends Component {
 
   }
 
-
-  // disables the radio button for the away player who's name is
-  // this.state.disabledPlayer
-  disableAway(e,homeOrAway) {
-    var tmp = e.target;
-    if (homeOrAway === "home") {
-      this.setState({
-        "disabledPlayer": tmp.value
-      })
-    }
-  }
-
   // sets this.state.end to true, triggering renders of other components
   endGame() {
     this.setState({
@@ -233,7 +220,15 @@ class App extends Component {
 
   // sets the whole state to it's initial values
   newGame() {
-    this.setState(this.initialState);
+    this.setState({
+      "players": [new Player("1"), new Player("2"), new Player("3")],
+      "staticPlayers": [],
+      "numberPlayers": 3,
+      "start": true,
+      "end": false,
+      "disabledPlayer": null,
+      "winPoints":3
+    });
   }
 
   // render method with various conditions depending on the state
@@ -264,7 +259,6 @@ class App extends Component {
                numberPlayers={this.state.numberPlayers}
                handleScore={this.handleScore.bind(this)}
                endGame={this.endGame.bind(this)}
-               disableAway={this.disableAway.bind(this)}
                disabledPlayer={this.state.disabledPlayer}
              />
           </div>

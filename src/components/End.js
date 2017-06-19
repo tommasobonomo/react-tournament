@@ -12,7 +12,7 @@ const End = (props) => {
         w3-blue-gray w3-large w3-round w3-card-4"
         autoFocus
       >
-        End
+        Restart
       </button>
     </div>
   )
