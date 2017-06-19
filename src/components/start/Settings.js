@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../../css/Settings.css"
 
 const playerInputs = (n,handlePlayers,players) => {
   var inputs = [];
@@ -29,6 +29,7 @@ const Settings = (props) => {
           <p>How many points for a victory?</p>
           <p>
             <input
+              className="numberInput"
               value={props.winPoints}
               onChange={props.handleWinPoints}
               type="number"
@@ -39,6 +40,7 @@ const Settings = (props) => {
         <div className="w3-third">
           <p>How many players are there?</p>
           <p><input
+          className="numberInput"
           value={props.numberPlayers}
           onChange={props.handleNumbers}
           type="number"
@@ -51,7 +53,7 @@ const Settings = (props) => {
       </div>
       <div className="w3-center">
         <button
-          className="w3-button w3-blue-grey w3-large"
+          className="w3-button w3-blue-grey w3-large w3-round w3-card-4"
           onClick={props.setStartFalse}
         >
           Start
