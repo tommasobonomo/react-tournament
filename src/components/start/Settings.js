@@ -51,7 +51,7 @@ const Settings = (props) => {
       </div>
       <div className="w3-center">
         <button
-          className="w3-button w3-blue-grey w3-large"
+          className="w3-button w3-blue-grey w3-large w3-round w3-card-4"
           onClick={props.setStartFalse}
         >
           Start

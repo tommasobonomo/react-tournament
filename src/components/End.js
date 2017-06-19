@@ -5,17 +5,15 @@ const End = (props) => {
     <div className="w3-container">
       <h3>Congratulations, {props.players[0].name}, you won the game!</h3>
       <p>Do you want to start a new game?</p>
-      <div className="tooltip">
-        <button
-          id="newGame"
-          onClick={props.newGame}
-          className="w3-margin-top w3-circle w3-blue-gray"
-          autoFocus
-        >
-          <i className="material-icons">arrow_forward</i>
-        </button>
-        <span className="tooltiptext">Enter</span>
-      </div>
+      <button
+        id="newGame"
+        onClick={props.newGame}
+        className="w3-margin-top w3-button
+        w3-blue-gray w3-large w3-round w3-card-4"
+        autoFocus
+      >
+        End
+      </button>
     </div>
   )
 }

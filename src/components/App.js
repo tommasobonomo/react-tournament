@@ -74,7 +74,11 @@ class App extends Component {
       window.alert("You need to have 3 or more players");
     } else {
       var tmp = this.state.players;
-      tmp.push(new Player(event.target.value));
+      if (this.state.numberPlayers < event.target.value) {
+        tmp.push(new Player(event.target.value));
+      } else {
+        tmp.pop();
+      }
       this.setState({
         "numberPlayers":event.target.value,
         "players":tmp
