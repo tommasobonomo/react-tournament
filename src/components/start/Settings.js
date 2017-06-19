@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const playerInputs = (n,handlePlayers) => {
+const playerInputs = (n,handlePlayers,players) => {
   var inputs = [];
   if (n>0 && n<50) {
     for (var i = 0; i<n; i++) {
@@ -12,6 +12,7 @@ const playerInputs = (n,handlePlayers) => {
             key={"i"+i}
             id={i}
             onChange={handlePlayers}
+            value={players[i].name}
           />
         </p>
       );
@@ -45,7 +46,7 @@ const Settings = (props) => {
         </div>
         <div className="w3-third">
           <p> Players: </p>
-          {playerInputs(props.numberPlayers,props.handlePlayers)}
+          {playerInputs(props.numberPlayers,props.handlePlayers,props.players)}
         </div>
       </div>
       <div className="w3-center">

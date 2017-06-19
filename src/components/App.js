@@ -22,7 +22,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      "players": [],
+      "players": [new Player("1"), new Player("2"), new Player("3")],
       "staticPlayers": [],
       "numberPlayers": 3,
       "start": true,
@@ -73,8 +73,11 @@ class App extends Component {
     if (event.target.value <= 2) {
       window.alert("You need to have 3 or more players");
     } else {
+      var tmp = this.state.players;
+      tmp.push(new Player(event.target.value));
       this.setState({
-        "numberPlayers":event.target.value
+        "numberPlayers":event.target.value,
+        "players":tmp
       })
     }
   }
@@ -83,12 +86,7 @@ class App extends Component {
   handlePlayers(event) {
     var players = this.state.players;
     var pos = event.target.id;
-
-    if (players[pos] === undefined) {
-      players[pos] = new Player(event.target.value);
-    } else {
-      players[pos].constructor(event.target.value);
-    }
+    players[pos].constructor(event.target.value);
 
     this.setState({players});
   }
@@ -280,6 +278,7 @@ class App extends Component {
             handleNumbers={this.handleNumbers.bind(this)}
             numberPlayers={this.state.numberPlayers}
             handlePlayers={this.handlePlayers.bind(this)}
+            players={this.state.players}
             winPoints={this.state.winPoints}
             handleWinPoints={this.handleWinPoints.bind(this)}
             setStartFalse={this.setStartFalse.bind(this)}
