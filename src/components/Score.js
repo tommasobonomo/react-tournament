@@ -34,21 +34,24 @@ class Score extends Component {
     const n = this.state.numberPlayers;
 
     for (var i=0; i<n; i++) {
-      const input =
-      <p
-        type="radio"
-        id={homeOrAway + "Player" + i}
-        value={players[i].name}
-        className="w3-radio w3-margin-right w3-hover-red"
-        onChange={
-          (event) => this.handleSelection(event,homeOrAway)
-        }
-        disabled={players[i].name === this.state.disabledPlayer &&
-          homeOrAway === "away"}
-      >{players[i].name}</p>;
 
       output.push(
-        input
+        <p key={"paragraph"+i}>
+          <input
+            type="radio"
+            key={"o"+i}
+            name={homeOrAway + "Players"}
+            id={homeOrAway + "Player" + i}
+            value={players[i].name}
+            className="w3-radio w3-margin-right"
+            onClick={
+              (event) => this.handleSelection(event,homeOrAway)
+            }
+            disabled={players[i].name === this.state.disabledPlayer &&
+              homeOrAway === "away"}
+          />
+          <label>{players[i].name}</label>
+        </p>
       );
     }
     return (
