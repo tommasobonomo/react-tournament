@@ -73,6 +73,7 @@ class App extends Component {
   setStartFalse() {
     this.setState({
      "start" : false,
+     "staticPlayers":this.state.players
     });
   }
 
