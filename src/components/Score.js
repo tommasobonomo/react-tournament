@@ -14,7 +14,6 @@ class Score extends Component {
   }
 
   handleSelection(event,homeOrAway) {
-    // console.log(event.target, homeOrAway);
     if (homeOrAway === "home") {
       this.setState({
         "disabledPlayer":event.target.value,
