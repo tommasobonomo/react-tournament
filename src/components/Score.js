@@ -9,7 +9,7 @@ class Score extends Component {
       "numberPlayers":props.numberPlayers,
       "homePlayer":props.players[0].name,
       "awayPlayer":props.players[1].name,
-      "disabledPlayer":props.players[0].name,
+      "disabledPlayer":props.disabledPlayer,
     }
   }
 
@@ -34,7 +34,10 @@ class Score extends Component {
     const n = this.state.numberPlayers;
 
     for (var i=0; i<n; i++) {
-
+      var checkedOrNot = false;
+      if ((i===0 && homeOrAway==="home") || (i===1 && homeOrAway==="away")) {
+        checkedOrNot = true;
+      }
       output.push(
         <p key={"paragraph"+i}>
           <input
@@ -49,6 +52,7 @@ class Score extends Component {
             }
             disabled={players[i].name === this.state.disabledPlayer &&
               homeOrAway === "away"}
+            defaultChecked={checkedOrNot}
           />
           <label>{players[i].name}</label>
         </p>
@@ -88,7 +92,10 @@ class Score extends Component {
           <button
             className="w3-button w3-blue-gray w3-large
             w3-round w3-card-4 w3-margin-right"
-            onClick={this.props.handleScore}
+            onClick={()=> {
+              this.props.handleScore(this.state.homePlayer,this.state.awayPlayer,
+                this.state.disabledPlayer)
+            }}
             id="scoreSubmit"
           >
             Submit

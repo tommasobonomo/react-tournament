@@ -21,49 +21,15 @@ class App extends Component {
 
   constructor() {
     super();
+    var players = [new Player("1"), new Player("2"), new Player("3")];
     this.state = {
-      "players": [new Player("1"), new Player("2"), new Player("3")],
-      "staticPlayers": [],
+      "players": players,
       "numberPlayers": 3,
       "start": true,
       "end": false,
-      "disabledPlayer": null,
+      "disabledPlayer": players[0].name,
       "winPoints":3
     };
-  }
-
-  // util function to compare the different Player objects
-  compare(a,b) {
-    var res;
-    if (a.points > b.points) {
-      res = -1;
-    } else if (a.points < b.points) {
-      res = 1;
-    } else {
-      if (a.gamesWon > b.gamesWon) {
-        res = -1;
-      } else if (a.gamesWon < b.gamesWon) {
-        res = 1;
-      } else {
-        if (a.gamesLost < b.gamesLost) {
-          res = -1;
-        } else if (a.gamesLost > b.gamesLost) {
-          res = 1;
-        } else {
-          res = 0;
-        }
-      }
-    }
-
-    return res;
-  }
-
-  // sorts this.state.players using the compare function
-  sortTable(tmp) {
-    tmp.sort(this.compare);
-    this.setState({
-      "players": tmp,
-    });
   }
 
   // number input handler
@@ -107,106 +73,53 @@ class App extends Component {
   setStartFalse() {
     this.setState({
      "start" : false,
-     "staticPlayers": this.state.players
     });
   }
 
   // score input handler
-  handleScore() {
-
+  handleScore(homeP, awayP, disabledP) {
     var player1;
     var player2;
     var disabledPlayer;
-    var i, tmp;
     const n = this.state.numberPlayers;
+    var players = this.state.players;
 
-    // Checks what players have been selected
-    var stop = false;
-    for (i=0; i<n && !stop; i++) {
-      tmp = document.getElementById("homePlayer"+i);
-      if (tmp.checked) {
-        player1 = tmp;
-        stop = true;
-        disabledPlayer = document.getElementById("awayPlayer"+i);
-      }
-    }
-    stop = false;
-    for (i=0; i<n && !stop; i++) {
-      tmp = document.getElementById("awayPlayer"+i);
-      if (tmp.checked) {
-        player2 = tmp;
-        stop = true;
-      }
+    for (var j=0; j<n; j++) {
+      if (players[j].name === homeP)
+        player1=players[j];
+      else if (players[j].name === awayP)
+        player2=players[j];
+      else if (players[j].name === disabledP)
+        disabledPlayer=players[j];
     }
 
-
-
-    tmp = this.state.players.slice();
-    var homePos;
-    var awayPos;
-
-    // gets position in Players' array for homePlayer and awayPlayer
-    for (i=0; i<n; i++) {
-      if (tmp[i].name === player1.value) {
-        homePos = i;
-      }
-      if (tmp[i].name === player2.value) {
-        awayPos = i;
-      }
-    }
-
-    tmp[homePos].gamesPlayed ++;
-    tmp[awayPos].gamesPlayed ++;
+    player1.gamesPlayed++;
+    player2.gamesPlayed++;
 
     const score1 = parseInt(document.getElementById("homeScore").value,10);
     const score2 = parseInt(document.getElementById("awayScore").value,10);
 
-    var homeWin;
-    var draw;
-
-    // checks different scenarios (home win, away win or draw)
     if (score1 > score2) {
-      homeWin = true;
+      player1.points += this.state.winPoints;
+      player1.gamesWon++;
+      player2.gamesLost++;
     } else if (score1 < score2) {
-      homeWin = false;
+      player2.points += this.state.winPoints;
+      player2.gamesWon++;
+      player1.gamesLost++;
     } else {
-      draw = true;
+      player1.points++;
+      player2.points++;
+      player1.gamesDrawn++;
+      player2.gamesDrawn++;
     }
-
-    // updates players according to the different scenarios
-    if (draw) {
-      tmp[homePos].points++;
-      tmp[awayPos].points++;
-      tmp[homePos].gamesDrawn++;
-      tmp[awayPos].gamesDrawn++;
-    } else {
-      if (homeWin) {
-        tmp[homePos].points += this.state.winPoints;
-        tmp[homePos].gamesWon++;
-        tmp[awayPos].gamesLost++;
-      } else if (!homeWin) {
-        tmp[awayPos].points += this.state.winPoints;
-        tmp[awayPos].gamesWon++;
-        tmp[homePos].gamesLost++;
-      }
-    }
-
-    this.sortTable(tmp);
-
-    // resets the radio buttons to unchecked
-    player1.checked = false;
-    player2.checked = false;
-
-    // renables the disabled radio button
-    disabledPlayer.disabled = false;
 
     // resets the score inputs
     document.getElementById("homeScore").value = null;
     document.getElementById("awayScore").value = null;
 
     this.setState({
-      "players" : tmp,
-      "disabledPlayer": null
+      "players" : players,
     });
 
   }
