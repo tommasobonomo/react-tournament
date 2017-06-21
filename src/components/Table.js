@@ -31,8 +31,9 @@ const Table = (props) => {
 
   var inputs = [];
   const n = props.numberPlayers;
+  const players = sortTable(props.players);
   for (var i=0; i<n; i++) {
-    inputs.push(scoreLine(i,props.players));
+    inputs.push(scoreLine(i,players));
   }
   return (
     <table className="w3-table-all w3-hoverable w3-card-4 w3-margin-top">
@@ -52,5 +53,33 @@ const Table = (props) => {
   );
 }
 
+function compare(a,b) {
+  var res;
+  if (a.points > b.points) {
+    res = -1;
+  } else if (a.points < b.points) {
+    res = 1;
+  } else {
+    if (a.gamesWon > b.gamesWon) {
+      res = -1;
+    } else if (a.gamesWon < b.gamesWon) {
+      res = 1;
+    } else {
+      if (a.gamesLost < b.gamesLost) {
+        res = -1;
+      } else if (a.gamesLost > b.gamesLost) {
+        res = 1;
+      } else {
+        res = 0;
+      }
+    }
+  }
+  return res;
+}
+
+function sortTable(players) {
+  players.sort(compare);
+  return players;
+}
 
 export default Table;

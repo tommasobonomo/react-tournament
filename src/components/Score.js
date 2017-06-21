@@ -5,20 +5,28 @@ class Score extends Component {
     super(props);
 
     this.state = {
-      "players":props.players,
-      "numberPlayers":props.numberPlayers,
       "homePlayer":props.players[0].name,
       "awayPlayer":props.players[1].name,
-      "disabledPlayer":props.disabledPlayer,
+      "disabledPlayer":props.players[0].name,
+      "homeScore":0,
+      "awayScore":0
     }
   }
 
   handleSelection(event,homeOrAway) {
     if (homeOrAway === "home") {
       document.getElementById("awayPlayer"+event.target.value).checked = false;
+      var tmpAway;
+      if (this.state.awayPlayer === event.target.value) {
+        // console.log("disabled "+event.target.value);
+        tmpAway = null;
+      } else {
+        tmpAway = event.target.value;
+      }
       this.setState({
         "disabledPlayer":event.target.value,
-        "homePlayer":event.target.value
+        "homePlayer":event.target.value,
+        "awayPlayer":tmpAway
       });
     } else {
       this.setState({
@@ -27,11 +35,20 @@ class Score extends Component {
     }
   }
 
+  handleScoreChange(event) {
+    if (event.target.value >= 0) {
+      if (event.target.id === "homeScore")
+        this.setState({"homeScore":event.target.value});
+      else if (event.target.id === "awayScore")
+        this.setState({"awayScore":event.target.value});
+    }
+  }
+
   playerSelect (homeOrAway) {
 
     var output = [];
-    const players = this.state.players;
-    const n = this.state.numberPlayers;
+    const players = this.props.players;
+    const n = this.props.numberPlayers;
 
     for (var i=0; i<n; i++) {
       var checkedOrNot = false;
@@ -80,11 +97,15 @@ class Score extends Component {
               className="w3-input w3-half w3-border"
               type="number"
               id="homeScore"
+              value={this.state.homeScore}
+              onChange={this.handleScoreChange.bind(this)}
             />
             <input
               className="w3-input w3-half w3-border"
               type="number"
               id="awayScore"
+              value={this.state.awayScore}
+              onChange={this.handleScoreChange.bind(this)}
             />
           </div>
         </div>
@@ -94,7 +115,7 @@ class Score extends Component {
             w3-round w3-card-4 w3-margin-right"
             onClick={()=> {
               this.props.handleScore(this.state.homePlayer,this.state.awayPlayer,
-                this.state.disabledPlayer)
+                this.state.homeScore,this.state.awayScore)
             }}
             id="scoreSubmit"
           >

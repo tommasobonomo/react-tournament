@@ -24,10 +24,10 @@ class App extends Component {
     var players = [new Player("1"), new Player("2"), new Player("3")];
     this.state = {
       "players": players,
+      "staticPlayers":[],
       "numberPlayers": 3,
       "start": true,
       "end": false,
-      "disabledPlayer": players[0].name,
       "winPoints":3
     };
   }
@@ -71,58 +71,55 @@ class App extends Component {
 
   // sets the start element in state to false
   setStartFalse() {
+    const tmp = this.state.players.slice();
     this.setState({
      "start" : false,
-     "staticPlayers":this.state.players
+     "staticPlayers":tmp
     });
   }
 
   // score input handler
-  handleScore(homeP, awayP, disabledP) {
-    var player1;
-    var player2;
-    var disabledPlayer;
-    const n = this.state.numberPlayers;
-    var players = this.state.players;
-
-    for (var j=0; j<n; j++) {
-      if (players[j].name === homeP)
-        player1=players[j];
-      else if (players[j].name === awayP)
-        player2=players[j];
-      else if (players[j].name === disabledP)
-        disabledPlayer=players[j];
-    }
-
-    player1.gamesPlayed++;
-    player2.gamesPlayed++;
-
-    const score1 = parseInt(document.getElementById("homeScore").value,10);
-    const score2 = parseInt(document.getElementById("awayScore").value,10);
-
-    if (score1 > score2) {
-      player1.points += this.state.winPoints;
-      player1.gamesWon++;
-      player2.gamesLost++;
-    } else if (score1 < score2) {
-      player2.points += this.state.winPoints;
-      player2.gamesWon++;
-      player1.gamesLost++;
+  handleScore(homeP, awayP,scoreH,scoreA) {
+    if (awayP === null) {
+      window.alert("Select an away player!");
     } else {
-      player1.points++;
-      player2.points++;
-      player1.gamesDrawn++;
-      player2.gamesDrawn++;
+      var player1;
+      var player2;
+      const n = this.state.numberPlayers;
+      var players = this.state.players;
+
+      for (var j=0; j<n; j++) {
+        if (players[j].name === homeP)
+          player1=players[j];
+        else if (players[j].name === awayP)
+          player2=players[j];
+      }
+
+      player1.gamesPlayed++;
+      player2.gamesPlayed++;
+
+      const score1 = scoreH;
+      const score2 = scoreA;
+
+      if (score1 > score2) {
+        player1.points += this.state.winPoints;
+        player1.gamesWon++;
+        player2.gamesLost++;
+      } else if (score1 < score2) {
+        player2.points += this.state.winPoints;
+        player2.gamesWon++;
+        player1.gamesLost++;
+      } else {
+        player1.points++;
+        player2.points++;
+        player1.gamesDrawn++;
+        player2.gamesDrawn++;
+      }
+
+      this.setState({
+        "players" : players,
+      });
     }
-
-    // resets the score inputs
-    document.getElementById("homeScore").value = null;
-    document.getElementById("awayScore").value = null;
-
-    this.setState({
-      "players" : players,
-    });
-
   }
 
   // sets this.state.end to true, triggering renders of other components
@@ -173,7 +170,6 @@ class App extends Component {
                numberPlayers={this.state.numberPlayers}
                handleScore={this.handleScore.bind(this)}
                endGame={this.endGame.bind(this)}
-               disabledPlayer={this.state.disabledPlayer}
              />
           </div>
           <div className="w3-twothird w3-responsive">
