@@ -80,7 +80,7 @@ class App extends Component {
 
   // score input handler
   handleScore(homeP, awayP,scoreH,scoreA) {
-    if (awayP === null || awayP === undefined) {
+    if (awayP === null || awayP === undefined || homeP === awayP) {
       window.alert("Select an away player!");
     } else {
       var player1;
