@@ -15,6 +15,7 @@ class Score extends Component {
 
   handleSelection(event,homeOrAway) {
     if (homeOrAway === "home") {
+      document.getElementById("awayPlayer"+event.target.value).checked = false;
       this.setState({
         "disabledPlayer":event.target.value,
         "homePlayer":event.target.value
@@ -40,7 +41,7 @@ class Score extends Component {
             type="radio"
             key={"o"+i}
             name={homeOrAway + "Players"}
-            id={homeOrAway + "Player" + i}
+            id={homeOrAway + "Player" + players[i].name}
             value={players[i].name}
             className="w3-radio w3-margin-right"
             onClick={
