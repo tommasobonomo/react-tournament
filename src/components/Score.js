@@ -15,18 +15,16 @@ class Score extends Component {
 
   handleSelection(event,homeOrAway) {
     if (homeOrAway === "home") {
-      document.getElementById("awayPlayer"+event.target.value).checked = false;
-      var tmpAway;
       if (this.state.awayPlayer === event.target.value) {
         // console.log("disabled "+event.target.value);
-        tmpAway = null;
-      } else {
-        tmpAway = event.target.value;
+        document.getElementById("awayPlayer"+event.target.value).checked = false;
+        this.setState({
+          "awayPlayer":null
+        })
       }
       this.setState({
         "disabledPlayer":event.target.value,
         "homePlayer":event.target.value,
-        "awayPlayer":tmpAway
       });
     } else {
       this.setState({
@@ -36,11 +34,12 @@ class Score extends Component {
   }
 
   handleScoreChange(event) {
-    if (event.target.value >= 0) {
+    var tmpScore = parseInt(event.target.value,10);
+    if (tmpScore >= 0) {
       if (event.target.id === "homeScore")
-        this.setState({"homeScore":event.target.value});
+        this.setState({"homeScore":tmpScore});
       else if (event.target.id === "awayScore")
-        this.setState({"awayScore":event.target.value});
+        this.setState({"awayScore":tmpScore});
     }
   }
 

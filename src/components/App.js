@@ -19,8 +19,8 @@ class Player {
 
 class App extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     var players = [new Player("1"), new Player("2"), new Player("3")];
     this.state = {
       "players": players,
