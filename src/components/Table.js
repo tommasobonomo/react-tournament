@@ -1,29 +1,6 @@
 import React, {Component} from 'react';
 import "../css/Table.css";
-
-function compare(a,b) {
-  var res;
-  if (a.points > b.points) {
-    res = -1;
-  } else if (a.points < b.points) {
-    res = 1;
-  } else {
-    if (a.gamesWon > b.gamesWon) {
-      res = -1;
-    } else if (a.gamesWon < b.gamesWon) {
-      res = 1;
-    } else {
-      if (a.gamesLost < b.gamesLost) {
-        res = -1;
-      } else if (a.gamesLost > b.gamesLost) {
-        res = 1;
-      } else {
-        res = 0;
-      }
-    }
-  }
-  return res;
-}
+import Player from "../Player"
 
 class Table extends Component {
   constructor(props) {
@@ -35,7 +12,7 @@ class Table extends Component {
   }
 
   sortPlayers() {
-    this.state.players.sort(compare);
+    this.state.players.sort(Player.compare);
   }
 
   render() {

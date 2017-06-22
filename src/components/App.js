@@ -4,18 +4,7 @@ import End from './End';
 import Settings from './start/Settings';
 import Score from './Score';
 import Table from './Table';
-
-class Player {
-  constructor(name) {
-    this.name = name;
-    this.points = 0;
-    this.gamesPlayed = 0;
-    this.gamesWon = 0;
-    this.gamesLost = 0;
-    this.gamesDrawn = 0;
-  }
-}
-
+import Player from "../Player.js";
 
 class App extends Component {
 
