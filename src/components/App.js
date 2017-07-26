@@ -23,18 +23,22 @@ class App extends Component {
 
   // number input handler
   handleNumbers(event) {
+    var newNumber = event.target.value;
     // number control
-    if (event.target.value <= 2) {
+    if (newNumber <= 2) {
       window.alert("You need to have 3 or more players");
     } else {
       var tmp = this.state.players;
-      if (this.state.numberPlayers < event.target.value) {
-        tmp.push(new Player(event.target.value));
+      if (this.state.numberPlayers < newNumber) {
+        for (var i = 1; i <= newNumber-this.state.numberPlayers; i++) {
+          var name = this.state.numberPlayers+i;
+          tmp.push(new Player(name));
+        }
       } else {
         tmp.pop();
       }
       this.setState({
-        "numberPlayers":event.target.value,
+        "numberPlayers":newNumber,
         "players":tmp
       })
     }
