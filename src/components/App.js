@@ -23,25 +23,23 @@ class App extends Component {
 
   // number input handler
   handleNumbers(event) {
-    var newNumber = event.target.value;
-    // number control
-    if (newNumber <= 2) {
-      window.alert("You need to have 3 or more players");
-    } else {
-      var tmp = this.state.players;
-      if (this.state.numberPlayers < newNumber) {
-        for (var i = 1; i <= newNumber-this.state.numberPlayers; i++) {
-          var name = this.state.numberPlayers+i;
-          tmp.push(new Player(name));
-        }
-      } else {
+    var newNumber = event.target.value === "" ?
+                    0 : parseInt(event.target.value,10);
+    var tmp = this.state.players;
+    if (this.state.numberPlayers < newNumber) {
+      for (var i = 1; i <= newNumber-this.state.numberPlayers; i++) {
+        var name = parseInt(this.state.numberPlayers+i, 10);
+        tmp.push(new Player(name));
+      }
+    } else if (this.state.numberPlayers > newNumber) {
+      for (var k = 0; k < this.state.numberPlayers - newNumber; k++) {
         tmp.pop();
       }
-      this.setState({
-        "numberPlayers":newNumber,
-        "players":tmp
-      })
     }
+    this.setState({
+      "numberPlayers":newNumber,
+      "players":tmp
+    })
   }
 
   // players' name input handler
@@ -64,11 +62,15 @@ class App extends Component {
 
   // sets the start element in state to false
   setStartFalse() {
-    const tmp = this.state.players.slice();
-    this.setState({
-     "start" : false,
-     "staticPlayers":tmp
-    });
+    if (this.state.numberPlayers < 3) {
+      window.alert("You need to have 3 or more players!");
+    } else {
+      const tmp = this.state.players.slice();
+      this.setState({
+       "start" : false,
+       "staticPlayers":tmp
+      });
+    }
   }
 
   // score input handler
