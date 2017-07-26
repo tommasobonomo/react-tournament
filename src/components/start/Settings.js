@@ -3,7 +3,9 @@ import "../../css/Settings.css"
 
 const playerInputs = (n,handlePlayers,players) => {
   var inputs = [];
-  if (n>0 && n<50) {
+  if (n > 1000) {
+    window.alert("You can't have more than 1000 players!");
+  } else {
     for (var i = 0; i<n; i++) {
       inputs.push(
         <p key={"p"+i} id={"p"+i}>
@@ -44,7 +46,7 @@ const Settings = (props) => {
           value={props.numberPlayers}
           onChange={props.handleNumbers}
           type="number"
-          /> (maximum of 50)</p>
+          /></p>
         </div>
         <div className="w3-third">
           <p> Players: </p>

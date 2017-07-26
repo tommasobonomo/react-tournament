@@ -25,21 +25,25 @@ class App extends Component {
   handleNumbers(event) {
     var newNumber = event.target.value === "" ?
                     0 : parseInt(event.target.value,10);
-    var tmp = this.state.players;
-    if (this.state.numberPlayers < newNumber) {
-      for (var i = 1; i <= newNumber-this.state.numberPlayers; i++) {
-        var name = parseInt(this.state.numberPlayers+i, 10);
-        tmp.push(new Player(name));
+    if (newNumber < 0) {
+      window.alert("Can't have negative number of players!")
+    } else {
+      var tmp = this.state.players;
+      if (this.state.numberPlayers < newNumber) {
+        for (var i = 1; i <= newNumber-this.state.numberPlayers; i++) {
+          var name = parseInt(this.state.numberPlayers+i, 10);
+          tmp.push(new Player(name));
+        }
+      } else if (this.state.numberPlayers > newNumber) {
+        for (var k = 0; k < this.state.numberPlayers - newNumber; k++) {
+          tmp.pop();
+        }
       }
-    } else if (this.state.numberPlayers > newNumber) {
-      for (var k = 0; k < this.state.numberPlayers - newNumber; k++) {
-        tmp.pop();
-      }
+      this.setState({
+        "numberPlayers":newNumber,
+        "players":tmp
+      })
     }
-    this.setState({
-      "numberPlayers":newNumber,
-      "players":tmp
-    })
   }
 
   // players' name input handler
