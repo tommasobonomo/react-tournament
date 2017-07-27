@@ -1,4 +1,4 @@
-.tooltip {
+/*.tooltip {
     position: relative;
     display: inline-block;
 }
@@ -22,7 +22,7 @@
     content: " ";
     position: absolute;
     bottom: 100%;  /* At the top of the tooltip */
-    left: 50%;
+    /*left: 50%;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
@@ -31,4 +31,4 @@
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
-}
+}*/
